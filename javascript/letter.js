@@ -1,14 +1,14 @@
-const Letter = function(character){
+const Letter = function (character) {
     this.character = character.toLowerCase();
     this.guessed = false;
-    this.displayLetter = function(){
-        if(this.guessed){
+    this.displayLetter = function () {
+        if (this.guessed) {
             return this.character;
         }
         return "_";
     }
-    this.checkGuess = function(char){
-        if(char.toLowerCase() === this.character){
+    this.checkGuess = function (char) {
+        if (char.toLowerCase() === this.character) {
             this.guessed = true;
         }
     }
