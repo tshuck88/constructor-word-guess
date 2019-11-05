@@ -20,12 +20,4 @@ const Word = function (word) {
     }
 }
 
-// var hello = new Word("Hello");
-// // console.log(hello)
-// // console.log(hello.displayWord(hello.letters))
-// console.log(hello.displayWord());
-// var guess = "H";
-// hello.userGuess(guess);
-// console.log(hello.displayWord());
-
 module.exports = Word;
