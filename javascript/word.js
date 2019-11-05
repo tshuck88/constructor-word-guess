@@ -6,10 +6,10 @@ const Word = function (word) {
     for (let i = 0; i < this.word.length; i++) {
         this.letters.push(new Letter(this.word[i]));
     }
-    this.displayWord = function (arr) {
+    this.displayWord = function () {
         const currentWord = [];
-        for (let j = 0; j < arr.length; j++) {
-            currentWord.push(arr[j].displayLetter());
+        for (let j = 0; j < this.letters.length; j++) {
+            currentWord.push(this.letters[j].displayLetter());
         }
         return currentWord.join(" ");
     }
@@ -19,5 +19,13 @@ const Word = function (word) {
         }
     }
 }
+
+// var hello = new Word("Hello");
+// // console.log(hello)
+// // console.log(hello.displayWord(hello.letters))
+// console.log(hello.displayWord());
+// var guess = "H";
+// hello.userGuess(guess);
+// console.log(hello.displayWord());
 
 module.exports = Word;
