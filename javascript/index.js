@@ -30,6 +30,7 @@ function promptUser() {
         checkLetter(answers.guess)
         displayWord();
         isGameOver();
+        restartGame();
     });
 }
 
@@ -44,22 +45,38 @@ function checkLetter(letter) {
 function isGameOver() {
     if (!currentWord.displayWord().includes("_")) {
         gameOver = true;
-        console.log("You guessed the word. You win!");
+        console.log("You guessed the word. You win!" + newLine);
     } else if (guessRemaining > 0) {
         promptUser();
     } else {
         gameOver = true;
-        console.log("You are out of guesses. The word was " + currentWord.word + ". Game Over!");
+        console.log("You are out of guesses. The word was " + currentWord.word + ". Game Over!" + newLine);
     }
 }
 
 function initializeGame() {
+    gameOver = false;
     guessRemaining = 14;
     newWord();
     displayWord();
     promptUser();
 }
 
+function restartGame(){
+    if(gameOver === true){
+        inquirer.prompt([{
+            type: "list",
+            name: "restart",
+            message: "Do you want to play again?",
+            choices: ["Yes", "No"]
+        }
+        ]).then(answers => {
+            if(answers.restart === "Yes"){
+                initializeGame();
+            }
+        });
+    }
+}
 
 
 
