@@ -5,7 +5,7 @@ const possibleWords = ["banana", "apple", "pineapple", "strawberry", "coconut", 
 let currentWord;
 let guessRemaining;
 let gameOver;
-const newLine = "\n"
+const newLine = "\n";
 initializeGame();
 
 function newWord() {
@@ -18,6 +18,7 @@ function displayWord() {
 }
 
 function promptUser() {
+    displayWord();
     console.log("Guesses Remaining: " + guessRemaining + newLine);
     inquirer.prompt([{
         type: "input",
@@ -25,12 +26,17 @@ function promptUser() {
         message: "Guess a letter!",
     }
     ]).then(answers => {
-        guessRemaining--;
-        currentWord.userGuess(answers.guess);
-        checkLetter(answers.guess)
-        displayWord();
-        isGameOver();
-        restartGame();
+        const isLetter = (answers.guess >= "a" && answers.guess <= "z");
+        if (isLetter) {
+            guessRemaining--;
+            currentWord.userGuess(answers.guess);
+            checkLetter(answers.guess);
+            isGameOver();
+            restartGame();
+        } else {
+            console.log(newLine + "This application only accepts letters (a-z) as inputs. Please enter a letter.");
+            promptUser();
+        }
     });
 }
 
@@ -45,12 +51,12 @@ function checkLetter(letter) {
 function isGameOver() {
     if (!currentWord.displayWord().includes("_")) {
         gameOver = true;
-        console.log("You guessed the word. You win!" + newLine);
+        console.log(newLine + "You guessed the word. It was " + currentWord.word + "! You win!" + newLine);
     } else if (guessRemaining > 0) {
         promptUser();
     } else {
         gameOver = true;
-        console.log("You are out of guesses. The word was " + currentWord.word + ". Game Over!" + newLine);
+        console.log(newLine + "You are out of guesses. The word was " + currentWord.word + ". Game Over!" + newLine);
     }
 }
 
@@ -58,12 +64,11 @@ function initializeGame() {
     gameOver = false;
     guessRemaining = 14;
     newWord();
-    displayWord();
     promptUser();
 }
 
-function restartGame(){
-    if(gameOver === true){
+function restartGame() {
+    if (gameOver === true) {
         inquirer.prompt([{
             type: "list",
             name: "restart",
@@ -71,7 +76,7 @@ function restartGame(){
             choices: ["Yes", "No"]
         }
         ]).then(answers => {
-            if(answers.restart === "Yes"){
+            if (answers.restart === "Yes") {
                 initializeGame();
             }
         });
