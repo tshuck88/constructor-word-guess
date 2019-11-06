@@ -12,18 +12,41 @@ function newWord() {
 
 newWord();
 
-console.log(currentWord.displayWord())
-inquirer.prompt([{
-    type: "input",
-    name: "guess",
-    message: "Guess a letter!",
-},
-]).then(answers => {
-    console.log("Answer: " + answers.guess),
-    console.log(currentWord.displayWord())
+function displayWord() {
+    console.log("\n" + currentWord.displayWord() + "\n");
+    console.log(currentWord.displayWord().includes("_"));
+}
 
-})
+displayWord();
+promptUser();
 
-console.log("Guesses Remaining: " + guessRemaining);
+function promptUser() {
+    console.log("Guesses Remaining: " + guessRemaining);
+    inquirer.prompt([{
+        type: "input",
+        name: "guess",
+        message: "Guess a letter!",
+    }
+    ]).then(answers => {
+        guessRemaining--;
+        currentWord.userGuess(answers.guess);
+        displayWord();
+        if(guessRemaining > 0){
+            promptUser();
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
