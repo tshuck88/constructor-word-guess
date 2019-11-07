@@ -26,11 +26,12 @@ function promptUser() {
         message: "Guess a letter!",
     }
     ]).then(answers => {
-        const isLetter = (answers.guess >= "a" && answers.guess <= "z");
+        const userInput = answers.guess.toLowerCase();
+        const isLetter = (userInput >= "a" && userInput <= "z");
         if (isLetter) {
             guessRemaining--;
-            currentWord.userGuess(answers.guess);
-            checkLetter(answers.guess);
+            currentWord.userGuess(userInput);
+            checkLetter(userInput);
             isGameOver();
             restartGame();
         } else {
